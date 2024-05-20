@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PetService from '../services/PetsService';
 import { MuiColorInput } from 'mui-color-input';
+import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput';
+
 
 const CreatePetForm: React.FC = () => {
   const [name, setName] = useState<string>('');
@@ -31,6 +33,8 @@ const CreatePetForm: React.FC = () => {
     setColor(newValue as string)
   }
 
+
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -41,17 +45,9 @@ const CreatePetForm: React.FC = () => {
           onChange={(e) => setName(e.target.value)}
         />
       </div>
-      <div>
-        <label>Type</label>
-        <input
-          type="text"
-          value={type}
-          onChange={(e) => setType(e.target.value as unknown as number)}
-        />
-      </div>
       <label>Pet Type</label>
       <select name="types" id="type">
-        { possibleTypes.map((type) => ( <option value="javascript">JavaScript</option> ))}
+        { possibleTypes.map((type) => ( <option value={type} >{type}</option> ))}
       </select>
       <div>
         <label>Color</label>
@@ -60,10 +56,13 @@ const CreatePetForm: React.FC = () => {
       <div>
         <label>Age</label>
         <input
-          type="text"
-          value={age}
-          onChange={(e) => setType(e.target.value as unknown as number)}
-        />
+        type="number"
+        step="1"
+        min="0"
+        max="20"
+        value={age}
+        onChange={(e) => setAge(e.target.value as unknown as number)}
+      />
       </div>
       <button type="submit">Create Pet</button>
     </form>
