@@ -5,7 +5,7 @@ const API_URL = 'https://localhost:7191/api/pet';
 interface Pet {
   id: string,
   name: string,
-  createdAt: Date,
+  createdAt: string,
   type: number,
   color: string,
   age: number
@@ -19,7 +19,12 @@ const createPet = (pet: Pet) => {
   return axios.post<Pet>(API_URL, pet);
 };
 
+const getTypes = () => {
+  return axios.get<string[]>(`${API_URL}/types`);
+}
+
 export default {
     getPets,
     createPet,
+    getTypes,
 };
