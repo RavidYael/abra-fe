@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PetService from '../services/PetsService';
+import { MuiColorInput } from 'mui-color-input';
 
 const CreatePetForm: React.FC = () => {
   const [name, setName] = useState<string>('');
@@ -8,11 +9,11 @@ const CreatePetForm: React.FC = () => {
   const [age, setAge] = useState<number>(0);
   const [possibleTypes, setPossibleTypes] = useState<string[]>([]);
 
-    React.useEffect(() => {
-        PetService.getTypes().then((response) => {
-        setPossibleTypes(response.data);
-        });
-    }, []);
+    // React.useEffect(() => {
+    //     PetService.getTypes().then((response) => {
+    //     setPossibleTypes(response.data);
+    //     });
+    // }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,6 +26,10 @@ const CreatePetForm: React.FC = () => {
       setAge(0);
     });
   };
+
+  const handleColorChange = (newValue: any) => {
+    setColor(newValue as string)
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -50,11 +55,7 @@ const CreatePetForm: React.FC = () => {
       </select>
       <div>
         <label>Color</label>
-        <input
-          type="text"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-        />
+        <MuiColorInput format="hex" value={color} onChange={handleColorChange} />
       </div>
       <div>
         <label>Age</label>
